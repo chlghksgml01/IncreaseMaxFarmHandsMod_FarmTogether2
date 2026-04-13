@@ -4,8 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <AssemblyName>MaxHelpersMod</AssemblyName>
-    <RootNamespace>MaxHelpersMod</RootNamespace>
+    <AssemblyName>IncreaseMaxFarmHandsMod</AssemblyName>
+    <RootNamespace>IncreaseMaxFarmHandsMod</RootNamespace>
     <!-- Farm Together 2 BepInEx 경로 설정 -->
     <FT2BepInExPath>C:\Program Files (x86)\Steam\steamapps\common\Farm Together 2\BepInEx</FT2BepInExPath>
   </PropertyGroup>

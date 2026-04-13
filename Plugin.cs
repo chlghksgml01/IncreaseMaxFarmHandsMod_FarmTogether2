@@ -4,12 +4,12 @@ using BepInEx.Unity.IL2CPP;
 using HarmonyLib;
 using Logic.Town.Items;
 
-namespace MaxHelpersMod;
+namespace IncreaseMaxFarmHandsMod;
 
 /// <summary>
 /// Farm Together 2 - Farmhand Stall max level expansion mod
 /// Increases TownFarmhandsInstance.LevelCap when the configured NEW_MAX_LEVEL is higher than vanilla.
-/// Config file: BepInEx/config/com.user.ft2.maxhelpersmod.cfg
+/// Config file: BepInEx/config/com.user.ft2.increasemaxfarmhandsmod.cfg
 /// </summary>
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BasePlugin
@@ -21,17 +21,17 @@ public class Plugin : BasePlugin
         NewMaxLevel = Config.Bind(
             "General",
             "NEW_MAX_LEVEL",
-            40u,
+            50u,
             new ConfigDescription(
                 "Farmhand stall max level (LevelCap). Used when vanilla cap is lower than this value.",
                 new AcceptableValueRange<uint>(1, 100)));
 
-        Log.LogInfo($"[MaxHelpersMod] Loaded - farmhand stall max level target: {NewMaxLevel.Value} (edit NEW_MAX_LEVEL in BepInEx/config/{MyPluginInfo.PLUGIN_GUID}.cfg).");
+        Log.LogInfo($"[IncreaseMaxFarmHandsMod] Loaded - farmhand stall max level target: {NewMaxLevel.Value} (edit NEW_MAX_LEVEL in BepInEx/config/{MyPluginInfo.PLUGIN_GUID}.cfg).");
 
         var harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
         harmony.PatchAll(typeof(Plugin).Assembly);
 
-        Log.LogInfo("[MaxHelpersMod] Harmony patches applied successfully.");
+        Log.LogInfo("[IncreaseMaxFarmHandsMod] Harmony patches applied successfully.");
     }
 }
 
@@ -48,8 +48,8 @@ public static class TownFarmhandsInstance_LevelCap_Patch
         var cap = Plugin.NewMaxLevel.Value;
         if (__result < cap)
         {
-            BepInEx.Logging.Logger.CreateLogSource("MaxHelpersMod")
-                .LogInfo($"[MaxHelpersMod] LevelCap overridden: {__result} -> {cap}");
+            BepInEx.Logging.Logger.CreateLogSource("IncreaseMaxFarmHandsMod")
+                .LogInfo($"[IncreaseMaxFarmHandsMod] LevelCap overridden: {__result} -> {cap}");
             __result = cap;
         }
     }
