@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(dotnet build:*)"
+      "Bash(dotnet build:*)",
+      "Bash(gh *)",
+      "PowerShell(gh *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Mods\\\\IncreaseMaxFarmHandsMod\\\\bin\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object FullName, Length)",
+      "PowerShell(winget install *)",
+      "PowerShell(dotnet build *)",
+      "PowerShell(gh auth *)",
+      "PowerShell(gh release *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

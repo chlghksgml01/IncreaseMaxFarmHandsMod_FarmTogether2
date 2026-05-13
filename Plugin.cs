@@ -9,7 +9,7 @@ namespace IncreaseMaxFarmHandsMod;
 /// <summary>
 /// Farm Together 2 - Farmhand Stall max level expansion mod
 /// Increases TownFarmhandsInstance.LevelCap when the configured NEW_MAX_LEVEL is higher than vanilla.
-/// Config file: BepInEx/config/com.user.ft2.increasemaxfarmhandsmod.cfg
+/// Config file: BepInEx/config/increasemaxfarmhandsmod.cfg
 /// </summary>
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BasePlugin
@@ -42,14 +42,20 @@ public class Plugin : BasePlugin
 [HarmonyPatch(typeof(TownFarmhandsInstance), "get_LevelCap")]
 public static class TownFarmhandsInstance_LevelCap_Patch
 {
+    private static bool _logged = false;
+
     [HarmonyPostfix]
     public static void Postfix(ref uint __result)
     {
         var cap = Plugin.NewMaxLevel.Value;
         if (__result < cap)
         {
-            BepInEx.Logging.Logger.CreateLogSource("IncreaseMaxFarmHandsMod")
-                .LogInfo($"[IncreaseMaxFarmHandsMod] LevelCap overridden: {__result} -> {cap}");
+            if (!_logged)
+            {
+                BepInEx.Logging.Logger.CreateLogSource("IncreaseMaxFarmHandsMod")
+                    .LogInfo($"[IncreaseMaxFarmHandsMod] LevelCap overridden: {__result} -> {cap}");
+                _logged = true;
+            }
             __result = cap;
         }
     }
